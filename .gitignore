@@ -128,3 +128,22 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.70.0/windows_amd64/terraform-provider-aws_v6.70.0_x5.exe
+/travelmemory-key.ppk
+# Terraform local files and state
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/crash.log
+terraform/crash.*.log
+
+# Sensitive credentials and environment files
+*.env
+.env
+.env.*
+!.env.example
+*.pem
+*.ppk
+
+# Node dependencies
+node_modules/

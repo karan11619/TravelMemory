@@ -1,0 +1,72 @@
+
+---
+- name: Install and configure MongoDB 7.0
+  hosts: database
+  become: true
+
+  tasks:
+    - name: Stop MongoDB if currently running
+      ansible.builtin.systemd:
+        name: mongod
+        state: stopped
+      failed_when: false
+
+    - name: Remove MongoDB 8.0 repository
+      ansible.builtin.file:
+        path: /etc/apt/sources.list.d/mongodb-org-8.0.list
+        state: absent
+
+    - name: Remove old MongoDB 7.0 source file
+      ansible.builtin.file:
+        path: /etc/apt/sources.list.d/mongodb-org-7.0.sources
+        state: absent
+
+    - name: Remove MongoDB 8.0 packages
+      ansible.builtin.apt:
+        name:
+          - mongodb-org
+          - mongodb-org-database
+          - mongodb-org-server
+          - mongodb-org-mongos
+          - mongodb-org-tools
+          - mongodb-org-database-tools-extra
+        state: absent
+        purge: false
+        update_cache: false
+
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - gnupg
+          - curl
+        state: present
+        update_cache: false
+
+    - name: Download MongoDB 7.0 signing key
+      ansible.builtin.get_url:
+        url: https://pgp.mongodb.com/server-7.0.asc
+        dest: /usr/share/keyrings/mongodb-server-7.0.asc
+        mode: "0644"
+
+    - name: Configure MongoDB 7.0 repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-7.0.asc] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse"
+        state: present
+        filename: mongodb-org-7.0
+        update_cache: false
+
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 0
+
+    - name: Install MongoDB 7.0
+      ansible.builtin.apt:
+        name: mongodb-org
+        state: present
+
+    - name: Enable and start MongoDB
+      ansible.builtin.systemd:
+        name: mongod
+        state: started
+        enabled: true
