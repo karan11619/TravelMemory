@@ -578,36 +578,34 @@ Check application API access:
 curl -i http://<WEB_PUBLIC_IP>/trip
 ```
 
-## 12. Screenshots and Evidence
+## 12 Screenshots
 
-Add actual screenshots from your completed deployment to demonstrate the implementation.
+The following screenshots demonstrate the successful deployment and operation of the TravelMemory application on AWS.
 
-Recommended screenshots:
+### 1. Terraform Infrastructure Deployment
 
-1. Terraform initialization, plan, and successful apply.
-2. AWS console showing the web and database EC2 instances.
-3. VPC, subnet, route table, and security group configuration.
-4. Successful Ansible MongoDB installation.
-5. Successful Ansible application deployment and play recap.
-6. TravelMemory homepage running on AWS.
-7. Add Experience form.
-8. Saved trip details displayed in the application.
+Shows the successful Terraform infrastructure deployment.
 
-Create a `screenshots/` folder in the repository and use the actual screenshot filenames.
+![Terraform Infrastructure](screenshots/terraform-apply.png)
 
-Example Markdown references:
+### 2. Ansible Application Deployment
 
-```markdown
-![TravelMemory Homepage](screenshots/travelmemory-homepage.png)
-
-![Saved Trip Details](screenshots/saved-trip-details.png)
+Shows the Ansible deployment process and its successful completion.
 
 ![Ansible Deployment](screenshots/ansible-deployment.png)
 
-![Terraform Infrastructure](screenshots/terraform-apply.png)
-```
+### 3. TravelMemory Homepage
 
-Replace these example filenames with the real files you add to the repository.
+Shows the TravelMemory application running on AWS.
+
+![TravelMemory Homepage](screenshots/travelmemory-homepage.png)
+
+### 4. Saved Trip Details
+
+Shows trip details saved and displayed in the application.
+
+![Saved Trip Details](screenshots/saved-trip-details.png)
+
 
 ## 13. Security Considerations
 
